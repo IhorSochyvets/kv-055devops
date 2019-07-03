@@ -14,108 +14,13 @@
 #salary*1.1 if more than half of team members are developers.
 #Redefine string representation for employee as follows: "@firstName@ @secondName@, manager:@manager secondName@, experiance:@experiance@"
 
-class Employee(object):
-    def __init__(self, firstName, secondName, experianceValue, salaryValue):
-        self.firstName = firstName #each employee has: first name, second name, salary, experiance (years)
-        self.secondName = secondName
-        self.salaryValue = salaryValue
-        self.experianceValue = experianceValue
-
-    def show(self):
-        print("Employee First and Last Name: {0} {1}; Experience: {2} years; Salary: {3}$".format(self.firstName, self.secondName, self.experianceValue, self.salaryValue))
-
-class Developer(Employee):
-    def __init__(self, firstName, secondName, experianceValue, salaryValue, higherManager):
-        self.higherManager = higherManager
-        super(Developer, self).__init__(firstName, secondName, experianceValue, salaryValue)
-
-    def show(self):
-        print("Developer Name: {0} {1}; Manager: {2}; Experience: {3} years; ".format(self.firstName, self.secondName, self.higherManager, self.experianceValue))
-
-class Designer(Developer):
-    def __init__(self, firstName, secondName, experianceValue, salaryValue, higherManager, effCoeff):
-        self.effCoeff = effCoeff
-        super(Designer, self).__init__(firstName, secondName, experianceValue, salaryValue, higherManager)
-
-    def show(self):
-        print("Designer Name: {0} {1}; Manager: {2}; Experience: {3} years; ".format(self.firstName, self.secondName, self.higherManager, self.experianceValue))
-
-class Manager(Developer):
-    def __init__(self, firstName, secondName, experianceValue, salaryValue, higherManager, team):
-        self.team = team
-        super(Manager, self).__init__(firstName, secondName, experianceValue, salaryValue, higherManager)
-
-    def show(self):
-        print("Manager Name: {0} {1}; Manager: {2}; Experience: {3} years; ".format(self.firstName, self.secondName, self.higherManager, self.experianceValue))
-
-class TopManager(Employee):
-    def __init__(self, firstName, secondName, experianceValue, salaryValue):
-        super(TopManager, self).__init__(firstName, secondName, experianceValue, salaryValue)
-
-    def show(self):
-        print("CIO Name: {0} {1};".format(self.firstName, self.secondName))
-
-
-class Team(object):
-    def __init__(self, list_of_dev_and_des):
-        self.list_of_dev_and_des = list_of_dev_and_des
-
-    def show(self):
-        print('Team:')
-        for i in range(len(self.list_of_dev_and_des)):
-            self.list_of_dev_and_des[i].show()
-
-class Department(object):
-    def __init__(self, list_of_dev_and_des, list_of_managers):
-        self.list_of_dev_and_des = list_of_dev_and_des
-        self.list_of_managers = list_of_managers
-
-    def show(self):
-        print('List of managers with their own team:')
-        for i in range(len(self.list_of_managers)):
-            self.list_of_managers[i].show()
-
-    def salary_giving(self):
-        n = len(self.list_of_dev_and_des)
-        # salary for managers
-        for manager in self.list_of_managers:
-            b = 0
-            s = manager.salaryValue
-            if self.more_dev_then_des():        #if team has more then half of developers
-                s = s * 1.1
-            if 5 < n <= 10:
-                b = 200                          #if team has more then 5 employee
-            elif n > 10:
-                b = 300                          #if team has more then 10 employee
-            if manager.experianceValue > 2:
-                b = b + 200
-            elif manager.experianceValue > 5:
-                b = b + 500
-                s = s + (s * 1.1)
-            print("{0} {1} got salary: {2}".format(manager.firstName, manager.secondName, s + b))
-
-        #salary for developers and designers
-        for d in self.list_of_dev_and_des:
-            b = 0
-            s = d.salaryValue
-            if d.experianceValue > 2:
-                b = b + 200
-            elif d.experianceValue > 5:
-                b = b + 500
-                s = s * 1.1
-            if type(d) is Designer:
-                s = s * float(d.effCoeff)
-            print("{0} {1} got salary: {2}".format(d.firstName, d.secondName, s + b))
-
-
-    #returns the number of developers in the team
-    def more_dev_then_des(self):
-        dev = 0
-        for d in self.list_of_dev_and_des:
-            if type(d) is Developer:
-                dev = dev + 1
-        return(dev > (len(self.list_of_dev_and_des)-dev))
-
+from myPackage.Employee import Employee
+from myPackage.Developer import Developer
+from myPackage.Designer import Designer
+from myPackage.Manager import Manager
+from myPackage.TopManager import TopManager
+from myPackage.Team import Team
+from myPackage.Department import Department
 
 #team1
 #Developers
@@ -209,8 +114,6 @@ exper6 = 4
 salary6 = 1900
 team1 = []
 
-#employee1 = Employee(name1, lastname1, exper1, salary1)
-#employee1.show()
 developer1 = Developer(name1, lastname1, exper1, salary1, lastname6)
 developer2 = Developer(name2, lastname2, exper2, salary2, lastname6)
 developer3 = Developer(name3, lastname3, exper3, salary3, lastname6)
@@ -224,17 +127,11 @@ developer9 = Developer(name13, lastname13, exper13, salary13, lastname7)
 developer10 = Developer(name14, lastname14, exper14, salary14, lastname7)
 developer11 = Developer(name15, lastname15, exper15, salary15, lastname7)
 
-
-
-#developer1.show()
-#developer2.show()
-#developer3.show()
 designer1 =  Designer(name4, lastname4, exper4, salary4, lastname6, eff_coef)
 
 designer3 =  Designer(name16, lastname16, exper16, salary16, lastname16, eff_coef16)
 designer4 =  Designer(name17, lastname17, exper17, salary17, lastname17, eff_coef17)
 
-#designer1.show()
 manager2 =  Manager(name6, lastname6, exper6, salary6, lastname5, team1)
 manager3 =  Manager(name7, lastname7, exper7, salary7, lastname5, team2)
 manager1 =  TopManager(name5, lastname5, exper5, salary5)
@@ -242,7 +139,6 @@ manager1 =  TopManager(name5, lastname5, exper5, salary5)
 print(" ")
 print("Our BOSS:")
 manager1.show()
-#manager2.show()
 
 team_list1 = [developer1, developer2, developer3, designer1]
 team1 = Team(team_list1)
@@ -267,35 +163,3 @@ department.show()
 print(" ")
 print('Salary information (CIO not included): ')
 department.salary_giving()
-
-#	Oliver	Smith
-#	Jake	Johnson
-#	Noah	Williams
-#	James	Jones
-#	Jack	Brown
-#	Connor	Davis
-#	Liam	Miller
-#	John	Wilson
-#	Harry	Moore
-#	Callum	Taylor
-#	Mason	Anderson
-#	Robert	Thomas
-#	Jacob	Jackson
-#	Michael	White
-#	Kyle	Harris
-#	Thomas	Martin
-#	Joe	Thompson
-#	Ethan	Garcia
-#	David	Martinez
-#	George	Robinson
-#	Reece	Clark
-#	Richard	Rodriguez
-#	Oscar	Lewis
-#	Rhys	Lee
-#	Alexander	Walker
-#	Joseph	Hall
-#	Charlie	Allen
-#	Charles	Young
-#	William	Hernandez
-#	Damian	King
-#	Daniel	Wright
