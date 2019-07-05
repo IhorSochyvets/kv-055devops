@@ -28,17 +28,14 @@ name1 = "Oliver"
 lastname1 = "Smith"
 exper1 = 2
 salary1 = 1000
-
 name2 = "Noah"
 lastname2 = "Williams"
 exper2 = 3
 salary2 = 1200
-
 name3 = "James"
 lastname3 = "Jones"
 exper3 = 4
 salary3 = 1400
-
 #Designer
 name4 = "Jack"
 lastname4 = "Brown"
@@ -146,20 +143,26 @@ print(" ")
 print("Our Team 1:")
 team1.show()
 
-team_list2 = [developer4, developer5, developer6, developer7, developer8, developer9, developer10, developer11, designer3, designer4]
-team2 = Team(team_list2)
-print(" ")
-print("Our Team 2:")
-team2.show()
+#team_list2 = [developer4, developer5, developer6, developer7, developer8, developer9, developer10, developer11, designer3, designer4]
+#team2 = Team(team_list2)
+#print(" ")
+#print("Our Team 2:")
+#team2.show()
 
 # list of managers with their own teams
-manager_list = [manager2, manager3]
-team_list_all = team_list1 + team_list2
-department = Department(team_list_all, manager_list)
+manager_list = [manager2]
+#team_list_all = team_list1 + team_list2
+department = Department(team_list1, manager_list)
 
-print(" ")
-department.show()
+#print(" ")
+#department.show()
 
 print(" ")
 print('Salary information (CIO not included): ')
 department.salary_giving()
+
+print("Testing...")
+department.salary_giving2()
+
+print(manager2.salaryValue)
+#department.test_test()
